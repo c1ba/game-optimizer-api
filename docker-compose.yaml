@@ -1,0 +1,33 @@
+version: "3"
+services:
+  db:
+    image: postgres:14.0
+    container_name: game_optimizer
+    restart: always
+    environment:
+      - POSTGRES_DB=gameoptimizer_db
+      - POSTGRES_USER=rooterino
+      - POSTGRES_PASSWORD=postgre
+      - POSTGRES_EXTENSIONS=pgcrypto
+      - ADMIN_PASSWORD=test123
+    env_file:
+    - .env
+    volumes:
+      - ./pglocal/tables_generate.sql:/docker-entrypoint-initdb.d/1.sql
+    ports:
+      - 5433:5433
+    command: -p 5433
+  api:
+    depends_on:
+    - db
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: game_optimizer_api
+    restart: always
+    environment:
+      - DATABASE_HOST=db
+    env_file:
+      - .env
+    ports:
+      - 8080:8080
