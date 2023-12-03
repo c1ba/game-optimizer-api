@@ -1,7 +1,6 @@
-package com.ciba.gameoptimizerapi.controllers;
+package com.ciba.gameoptimizerapi.controllers.Game;
 
-
-import com.ciba.gameoptimizerapi.responses.ComponentResponse;
+import com.ciba.gameoptimizerapi.responses.GameResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
@@ -13,15 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
 @Validated
-@RequestMapping("/components")
-public interface ComponentsController {
+@RequestMapping("/games")
+public interface GameController {
 
     @GetMapping
-    @Operation(summary = "Get All Components", description = "Gets all components.")
+    @Operation(summary = "Get All Games", description = "Gets all games.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operation Successful"),
     })
-    ResponseEntity<List<ComponentResponse>> getAllComponents();
+    ResponseEntity<List<GameResponse>> getAllGames();
 }

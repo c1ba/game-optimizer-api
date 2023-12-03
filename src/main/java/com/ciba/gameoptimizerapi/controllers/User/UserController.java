@@ -1,5 +1,6 @@
-package com.ciba.gameoptimizerapi.controllers;
+package com.ciba.gameoptimizerapi.controllers.User;
 
+import com.ciba.gameoptimizerapi.exceptions.BadRequestException;
 import com.ciba.gameoptimizerapi.requests.LoginRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+
 @Validated
 public interface UserController {
 
@@ -20,5 +21,5 @@ public interface UserController {
             @ApiResponse(responseCode = "200", description = "Operation Successful"),
             @ApiResponse(responseCode = "401", description = "Unauthorized")
     })
-    ResponseEntity<String> login(@RequestBody LoginRequest request);
+    ResponseEntity<String> login(@RequestBody LoginRequest request) throws BadRequestException;
 }
