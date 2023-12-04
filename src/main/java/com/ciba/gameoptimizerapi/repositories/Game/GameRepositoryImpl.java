@@ -27,7 +27,7 @@ public class GameRepositoryImpl implements GameRepository {
         return dsl.select().from(GAMES)
                 .join(COMPONENT_COMBOS)
                 .on(COMPONENT_COMBOS.ID.eq(GAMES.MINIMUM_COMPONENTS_ID))
-                .where(GAMES.NAME.eq(name))
+                .where(GAMES.NAME.like(name))
                 .or(GAMES.YEAR_RELEASE.eq(releaseYear))
                 .or(GAMES.MINIMUM_COMPONENTS_ID.eq(componentsCombo.getId()))
                 .or(COMPONENT_COMBOS.PROCESSOR_ID.eq(componentsCombo.getProcessorId()))

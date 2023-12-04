@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface GameService {
 
-    List<Game> getGames(String name, int releaseYear, ComponentsCombo componentsCombo);
+    List<Game> getGames(String name, Integer releaseYear, ComponentsCombo componentsCombo);
 
     List<Game> getGames();
 

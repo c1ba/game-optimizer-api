@@ -82,7 +82,7 @@ DO $$
 
         CREATE TABLE IF NOT EXISTS gaming_optimizer.components (
              id uuid DEFAULT gen_random_uuid() NOT NULL,
-             name character varying(100) NOT NULL,
+             name character varying(100) DEFAULT NULL,
              type gaming_optimizer.component_type NOT NULL,
              capacity float(2),
              created_at timestamp NOT NULL DEFAULT NOW()

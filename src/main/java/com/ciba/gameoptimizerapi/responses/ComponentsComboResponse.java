@@ -33,15 +33,15 @@ public class ComponentsComboResponse {
         ComponentsComboResponse response = new ComponentsComboResponse();
 
         components.stream()
-                .filter(elem -> elem.getComponentType().equals(ComponentType.processor))
+                .filter(elem -> elem.getType().equals(ComponentType.processor))
                 .findAny().ifPresent(processor -> response.setProcessor(ComponentResponse.fromComponent(processor)));
 
         components.stream()
-                .filter(elem -> elem.getComponentType().equals(ComponentType.graphics_card))
+                .filter(elem -> elem.getType().equals(ComponentType.graphics_card))
                 .findAny().ifPresent(graphicsCard -> response.setGraphicsCard(ComponentResponse.fromComponent(graphicsCard)));
 
         components.stream()
-                .filter(elem -> elem.getComponentType().equals(ComponentType.ram))
+                .filter(elem -> elem.getType().equals(ComponentType.ram))
                 .findAny().ifPresent(ram -> response.setRam(ComponentResponse.fromComponent(ram)));
 
         return response;

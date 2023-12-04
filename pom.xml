@@ -82,6 +82,14 @@
 			<artifactId>swagger-annotations</artifactId>
 			<version>2.2.19</version>
 		</dependency>
+		<!-- Mockito -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<version>5.8.0</version>
+			<scope>test</scope>
+		</dependency>
+
 
 	</dependencies>
 
