@@ -86,6 +86,7 @@ public class GameServiceTest {
                 .type(ComponentType.ram)
                 .capacity(6.0F)
                 .build();
+
         ram2 = Component.builder()
                 .id(UUID.randomUUID())
                 .type(ComponentType.ram)

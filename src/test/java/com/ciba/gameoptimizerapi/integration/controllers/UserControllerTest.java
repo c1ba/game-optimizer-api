@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static com.ciba.gameoptimizerapi.utils.JSONUtils.writeRequestBody;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -34,7 +35,7 @@ public class UserControllerTest {
         reqBody.setUsername(username);
         reqBody.setPassword(password);
 
-        String requestJson=writeRequestBody(reqBody);
+        String requestJson= writeRequestBody(reqBody);
 
         mvc.perform(post("/login").contentType("application/json").content(requestJson))
                 .andExpect(status().isOk());
@@ -49,17 +50,9 @@ public class UserControllerTest {
         reqBody.setUsername(username);
         reqBody.setPassword(password);
 
-        String requestJson=writeRequestBody(reqBody);
+        String requestJson= writeRequestBody(reqBody);
 
         mvc.perform(post("/login").contentType("application/json").content(requestJson))
                 .andExpect(status().isBadRequest());
-    }
-
-    private String writeRequestBody(Object obj) throws JsonProcessingException {
-        ObjectMapper mapper = new ObjectMapper();
-        mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
-        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
-
-        return ow.writeValueAsString(obj);
     }
 }

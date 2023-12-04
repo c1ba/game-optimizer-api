@@ -37,10 +37,11 @@ public class GameResponse {
         response.setName(result.getName());
         response.setReleaseYear(result.getYearRelease());
 
-        ComponentsComboResponse minimumComponentsResponse = ComponentsComboResponse
-                .fromComponentsCombo(result.getMinimumComponents());
-
-        response.setMinimumComponents(minimumComponentsResponse);
+        if (result.getMinimumComponents() != null) {
+            ComponentsComboResponse minimumComponentsResponse = ComponentsComboResponse
+                    .fromComponentsCombo(result.getMinimumComponents());
+            response.setMinimumComponents(minimumComponentsResponse);
+        }
 
         return response;
     }

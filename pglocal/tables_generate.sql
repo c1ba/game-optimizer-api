@@ -113,8 +113,8 @@ DO $$
              user_id uuid NOT NULL,
              game_id uuid NOT NULL,
              performance_files_names varchar[],
-             likes int,
-             dislikes int,
+             likes int DEFAULT 0,
+             dislikes int DEFAULT 0,
              created_at timestamp NOT NULL DEFAULT NOW()
         );
         ALTER TABLE gaming_optimizer.performance_files OWNER TO rooterino;
