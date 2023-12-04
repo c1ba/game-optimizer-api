@@ -84,7 +84,7 @@ public class GameServiceTest {
         ram1 = Component.builder()
                 .id(UUID.randomUUID())
                 .type(ComponentType.ram)
-                .capacity(3.3F)
+                .capacity(6.0F)
                 .build();
         ram2 = Component.builder()
                 .id(UUID.randomUUID())
@@ -109,14 +109,14 @@ public class GameServiceTest {
         game1 = Game.builder()
                 .id(UUID.randomUUID())
                 .name("Hogwarts Legacy")
-                .releaseYear(2023)
+                .yearRelease(2023)
                 .minimumComponentsId(combo1.getId())
                 .build();
 
         game2 = Game.builder()
                 .id(UUID.randomUUID())
                 .name("Detroit: Become Human")
-                .releaseYear(2020)
+                .yearRelease(2020)
                 .minimumComponentsId(combo2.getId())
                 .build();
     }

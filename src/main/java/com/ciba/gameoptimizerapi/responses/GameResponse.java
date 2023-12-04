@@ -35,7 +35,7 @@ public class GameResponse {
 
         response.setId(result.getId());
         response.setName(result.getName());
-        response.setReleaseYear(result.getReleaseYear());
+        response.setReleaseYear(result.getYearRelease());
 
         ComponentsComboResponse minimumComponentsResponse = ComponentsComboResponse
                 .fromComponentsCombo(result.getMinimumComponents());

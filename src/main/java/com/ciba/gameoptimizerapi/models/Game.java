@@ -13,7 +13,7 @@ import java.util.UUID;
 public class Game {
     private UUID id;
     private String name;
-    private int releaseYear;
+    private int yearRelease;
     private UUID minimumComponentsId;
     private Timestamp createdAt;
 

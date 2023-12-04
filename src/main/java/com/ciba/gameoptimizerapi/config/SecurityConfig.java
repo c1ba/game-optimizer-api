@@ -5,6 +5,7 @@ import com.ciba.gameoptimizerapi.security.JWTAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -37,13 +38,14 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
         try {
             http.cors().configurationSource(corsConfigurationSource);
             http.csrf().disable()
-                    .authorizeHttpRequests(auth -> {
-                        Set<String> whitelist;
+                    .authorizeHttpRequests(auth ->
 
-                        whitelist = new HashSet<>(Set.of("/login", "/"));
-
-                        auth.requestMatchers(whitelist.toArray(new String[0])).permitAll().anyRequest().authenticated();
-                    });
+                        auth.requestMatchers("/login").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/games").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/components").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/performance_files").permitAll()
+                                .anyRequest().authenticated()
+                    );
             http
                     .sessionManagement()
                     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

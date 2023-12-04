@@ -1,19 +1,20 @@
 package com.ciba.gameoptimizerapi.controllers.PerformanceFiles;
 
-import com.ciba.gameoptimizerapi.models.jooq.tables.PerformanceFiles;
 import com.ciba.gameoptimizerapi.requests.PerformanceFilesRequest;
+import com.ciba.gameoptimizerapi.responses.PerformanceFilesResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
 @Validated
 @RequestMapping("/performance_files")
 public interface PerformanceFilesController {
@@ -23,5 +24,5 @@ public interface PerformanceFilesController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operation Successful"),
     })
-    List<PerformanceFiles> getPerformanceFiles(@RequestBody PerformanceFilesRequest request);
+    ResponseEntity<List<PerformanceFilesResponse>> getPerformanceFiles(@AuthenticationPrincipal UserDetails userDetails, @RequestBody PerformanceFilesRequest request);
 }
