@@ -1,6 +1,7 @@
 package com.ciba.gameoptimizerapi.responses;
 
 import com.ciba.gameoptimizerapi.models.Component;
+import com.ciba.gameoptimizerapi.models.enums.ComponentEnum;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -22,6 +23,10 @@ public class ComponentResponse {
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String name;
 
+    @JsonProperty("type")
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private ComponentEnum.ComponentTypeEnum type;
+
     @JsonProperty("capacity")
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private float capacity;
@@ -31,6 +36,7 @@ public class ComponentResponse {
 
         response.setId(result.getId());
         response.setName(result.getName());
+        response.setType(ComponentEnum.ComponentTypeEnum.valueOf(result.getType().getLiteral().toUpperCase()));
         response.setCapacity(result.getCapacity());
 
         return response;

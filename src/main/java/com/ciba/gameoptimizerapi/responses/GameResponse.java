@@ -1,5 +1,6 @@
 package com.ciba.gameoptimizerapi.responses;
 
+import com.ciba.gameoptimizerapi.models.Game;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -28,4 +29,19 @@ public class GameResponse {
     @JsonProperty("minimumComponents")
     @JsonInclude(JsonInclude.Include.NON_EMPTY)
     private ComponentsComboResponse minimumComponents;
+
+    public static GameResponse fromGame(Game result) {
+        GameResponse response = new GameResponse();
+
+        response.setId(result.getId());
+        response.setName(result.getName());
+        response.setReleaseYear(result.getReleaseYear());
+
+        ComponentsComboResponse minimumComponentsResponse = ComponentsComboResponse
+                .fromComponentsCombo(result.getMinimumComponents());
+
+        response.setMinimumComponents(minimumComponentsResponse);
+
+        return response;
+    }
 }

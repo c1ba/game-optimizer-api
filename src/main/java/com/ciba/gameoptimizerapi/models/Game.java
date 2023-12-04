@@ -8,7 +8,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Game {
@@ -17,4 +16,6 @@ public class Game {
     private int releaseYear;
     private UUID minimumComponentsId;
     private Timestamp createdAt;
+
+    private ComponentsCombo minimumComponents;
 }

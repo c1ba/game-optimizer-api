@@ -6,7 +6,6 @@ import java.util.UUID;
 
 @AllArgsConstructor
 @RequiredArgsConstructor
-@NoArgsConstructor
 @Builder
 @Setter
 @Getter

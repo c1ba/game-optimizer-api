@@ -9,7 +9,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
-@NoArgsConstructor
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class Component {
@@ -17,6 +16,6 @@ public class Component {
     private UUID id;
     private String name;
     private float capacity;
-    private ComponentType componentType;
+    private ComponentType type;
     private Timestamp createdAt;
 }

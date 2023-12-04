@@ -1,4 +1,4 @@
-package com.ciba.gameoptimizerapi.controllers;
+package com.ciba.gameoptimizerapi.controllers.PerformanceFiles;
 
 import com.ciba.gameoptimizerapi.models.jooq.tables.PerformanceFiles;
 import com.ciba.gameoptimizerapi.requests.PerformanceFilesRequest;
