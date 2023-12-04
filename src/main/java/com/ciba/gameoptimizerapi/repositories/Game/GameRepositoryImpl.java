@@ -18,8 +18,8 @@ public class GameRepositoryImpl implements GameRepository {
     private final DSLContext dsl;
 
     @Override
-    public List<Game> getGames(String name, Integer releaseYear, ComponentsCombo componentsCombo) {
-        if (name == null && releaseYear == null && componentsCombo == null) {
+    public List<Game> getGames(String name, Integer yearRelease, ComponentsCombo componentsCombo) {
+        if (name == null && yearRelease == null && componentsCombo == null) {
             return dsl.selectFrom(GAMES)
                     .fetchInto(Game.class);
         }
@@ -28,7 +28,7 @@ public class GameRepositoryImpl implements GameRepository {
                 .join(COMPONENT_COMBOS)
                 .on(COMPONENT_COMBOS.ID.eq(GAMES.MINIMUM_COMPONENTS_ID))
                 .where(GAMES.NAME.like(name))
-                .or(GAMES.YEAR_RELEASE.eq(releaseYear))
+                .or(GAMES.YEAR_RELEASE.eq(yearRelease))
                 .or(GAMES.MINIMUM_COMPONENTS_ID.eq(componentsCombo.getId()))
                 .or(COMPONENT_COMBOS.PROCESSOR_ID.eq(componentsCombo.getProcessorId()))
                 .or(COMPONENT_COMBOS.GRAPHICS_CARD_ID.eq(componentsCombo.getGraphcisCardId()))

@@ -28,9 +28,6 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class ApplicationConfig {
 
-    @Value("${app.frontendURL}")
-    private String frontendURL;
-
     //Contains the necessary beans (components) for the implementation of the authentication system.
 
     private final UserRepository userRepository;
@@ -72,7 +69,6 @@ public class ApplicationConfig {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList(frontendURL));
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

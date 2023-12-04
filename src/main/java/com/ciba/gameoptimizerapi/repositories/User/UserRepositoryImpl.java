@@ -7,6 +7,7 @@ import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -34,5 +35,12 @@ public class UserRepositoryImpl implements UserRepository {
         return dsl.select(USERS.ID, USERS.ROLE, USERS.USERNAME).from(USERS)
                 .where(USERS.USERNAME.eq(username))
                 .fetchOptionalInto(User.class);
+    }
+
+    @Override
+    public List<User> findByUUIDs(List<UUID> userUUIDs) {
+        return dsl.selectFrom(USERS)
+                .where(USERS.ID.in(userUUIDs))
+                .fetchInto(User.class);
     }
 }

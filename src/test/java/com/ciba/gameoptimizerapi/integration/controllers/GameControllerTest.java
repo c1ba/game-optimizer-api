@@ -1,7 +1,6 @@
 package com.ciba.gameoptimizerapi.integration.controllers;
 
 import com.ciba.gameoptimizerapi.models.User;
-import com.ciba.gameoptimizerapi.models.jooq.enums.UserType;
 
 import static com.ciba.gameoptimizerapi.models.jooq.Tables.USERS;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;

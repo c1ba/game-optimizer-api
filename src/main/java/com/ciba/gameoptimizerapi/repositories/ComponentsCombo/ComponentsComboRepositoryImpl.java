@@ -6,6 +6,7 @@ import org.jooq.DSLContext;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static com.ciba.gameoptimizerapi.models.jooq.Tables.COMPONENT_COMBOS;
@@ -21,5 +22,14 @@ public class ComponentsComboRepositoryImpl implements ComponentsComboRepository 
         return dsl.selectFrom(COMPONENT_COMBOS)
                 .where(COMPONENT_COMBOS.ID.in(uuidList))
                 .fetchInto(ComponentsCombo.class);
+    }
+
+    @Override
+    public Optional<ComponentsCombo> getComponentsComboByComponents(UUID processorUUID, UUID graphicsCardUUID, UUID ramUUID) {
+        return dsl.selectFrom(COMPONENT_COMBOS)
+                .where(COMPONENT_COMBOS.PROCESSOR_ID.eq(processorUUID))
+                .and(COMPONENT_COMBOS.GRAPHICS_CARD_ID.eq(graphicsCardUUID))
+                .and(COMPONENT_COMBOS.RAM_ID.eq(ramUUID))
+                .fetchOptionalInto(ComponentsCombo.class);
     }
 }
