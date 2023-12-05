@@ -18,7 +18,7 @@ public class ComponentsControllerImpl implements ComponentsController {
 
     @Override
     public ResponseEntity<SortedComponentsResponse> getAllComponents() {
-        List<Component> result = service.getALlComponents();
+        List<Component> result = service.getAllComponents();
         List<ComponentResponse> responses = result.stream().map(ComponentResponse::fromComponent).toList();
 
         return ResponseEntity.ok().body(SortedComponentsResponse.sortComponentResponses(responses));

@@ -1,11 +1,8 @@
 package com.ciba.gameoptimizerapi.unit.services;
 
 import com.ciba.gameoptimizerapi.models.Component;
-import com.ciba.gameoptimizerapi.models.ComponentsCombo;
-import com.ciba.gameoptimizerapi.models.Game;
 import com.ciba.gameoptimizerapi.models.jooq.enums.ComponentType;
 import com.ciba.gameoptimizerapi.repositories.Component.ComponentRepository;
-import com.ciba.gameoptimizerapi.services.Component.ComponentService;
 import com.ciba.gameoptimizerapi.services.Component.ComponentServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -64,6 +61,6 @@ public class ComponentServiceTest {
     void getALlComponents_shouldSucceed() {
         given(repository.getAllComponents()).willReturn(allComponents);
 
-        assertFalse(service.getALlComponents().isEmpty());
+        assertFalse(service.getAllComponents().isEmpty());
     }
 }

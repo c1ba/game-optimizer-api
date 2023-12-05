@@ -14,7 +14,7 @@ public class ComponentServiceImpl implements ComponentService {
     private final ComponentRepository repository;
 
     @Override
-    public List<Component> getALlComponents() {
-        return List.of();
+    public List<Component> getAllComponents() {
+        return repository.getAllComponents();
     }
 }

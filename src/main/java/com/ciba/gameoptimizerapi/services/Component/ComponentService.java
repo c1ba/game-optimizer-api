@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ComponentService {
 
-    List<Component> getALlComponents();
+    List<Component> getAllComponents();
 }
