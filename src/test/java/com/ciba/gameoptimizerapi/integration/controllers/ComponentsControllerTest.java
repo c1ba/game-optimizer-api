@@ -1,12 +1,6 @@
 package com.ciba.gameoptimizerapi.integration.controllers;
 
 import com.ciba.gameoptimizerapi.models.User;
-
-import static com.ciba.gameoptimizerapi.models.jooq.Tables.USERS;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,9 +10,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static com.ciba.gameoptimizerapi.models.jooq.Tables.USERS;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
-public class GameControllerTest {
+public class ComponentsControllerTest {
 
     @Autowired
     private MockMvc mvc;
@@ -36,12 +35,12 @@ public class GameControllerTest {
     }
 
     @Test
-    void getGames_asGuest_shouldSucceed() throws Exception {
-        mvc.perform(get("/games")).andExpect(status().isOk());
+    void getAllComponents_asGuest_shouldSucceed() throws Exception {
+        mvc.perform(get("/components")).andExpect(status().isOk());
     }
 
     @Test
-    void getGames_asUser_shouldSucceed() throws Exception {
-        mvc.perform(get("/games").with(user(user))).andExpect(status().isOk());
+    void getAllComponents_asUser_shouldSucceed() throws Exception {
+        mvc.perform(get("/components").with(user(user))).andExpect(status().isOk());
     }
 }

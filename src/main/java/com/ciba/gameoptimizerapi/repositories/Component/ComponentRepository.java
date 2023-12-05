@@ -8,4 +8,6 @@ import java.util.UUID;
 public interface ComponentRepository {
 
     List<Component> getComponentsByUUIDs(List<UUID> idList);
+
+    List<Component> getAllComponents();
 }
