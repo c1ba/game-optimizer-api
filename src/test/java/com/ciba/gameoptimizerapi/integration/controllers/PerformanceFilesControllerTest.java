@@ -81,29 +81,20 @@ public class PerformanceFilesControllerTest {
 
     @Test
     void getPerformanceFiles_asGuest_shouldSucceed() throws Exception {
-        PerformanceFilesRequest req = new PerformanceFilesRequest();
-        req.setProcessorId(processor.getId());
-        req.setGraphicsCardId(graphics.getId());
-        req.setRamId(ram.getId());
-        req.setGameId(game.getId());
 
-        String jsonRequest = writeRequestBody(req);
-
-        mvc.perform(get("/games").contentType("application/json").content(jsonRequest))
+        mvc.perform(get("/games/"+ game.getId()
+                        + "?processorId=" + processor.getId()
+                        + "&graphicsId=" + graphics.getId()
+                        + "&ramId=" + ram.getId()))
                 .andExpect(status().isOk());
     }
 
     @Test
     void getPerformanceFiles_asUser_shouldSucceed() throws Exception {
-        PerformanceFilesRequest req = new PerformanceFilesRequest();
-        req.setProcessorId(processor.getId());
-        req.setGraphicsCardId(graphics.getId());
-        req.setRamId(ram.getId());
-        req.setGameId(game.getId());
-
-        String jsonRequest = writeRequestBody(req);
-
-        mvc.perform(get("/games").with(user(user)).contentType("application/json").content(jsonRequest))
+        mvc.perform(get("/games/"+ game.getId()
+                        + "?processorId=" + processor.getId()
+                        + "&graphicsId=" + graphics.getId()
+                        + "&ramId=" + ram.getId()).with(user(user)))
                 .andExpect(status().isOk());
     }
 }
