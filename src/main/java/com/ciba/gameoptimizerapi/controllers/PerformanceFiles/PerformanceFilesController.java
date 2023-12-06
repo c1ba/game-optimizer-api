@@ -3,6 +3,9 @@ package com.ciba.gameoptimizerapi.controllers.PerformanceFiles;
 import com.ciba.gameoptimizerapi.requests.PerformanceFilesRequest;
 import com.ciba.gameoptimizerapi.responses.PerformanceFilesResponse;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +21,38 @@ import java.util.UUID;
 @RequestMapping("/performance_files")
 public interface PerformanceFilesController {
 
-    @PostMapping
+    @GetMapping("/{gameId}")
     @Operation(summary = "Get All Components", description = "Gets all components.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operation Successful"),
     })
-    ResponseEntity<List<PerformanceFilesResponse>> getPerformanceFiles(@AuthenticationPrincipal UserDetails userDetails, @RequestBody PerformanceFilesRequest request);
+    ResponseEntity<List<PerformanceFilesResponse>> getPerformanceFiles(@AuthenticationPrincipal UserDetails userDetails,
+                                                                       @Parameter(
+                                                                               in = ParameterIn.PATH,
+                                                                               description = "",
+                                                                               required = true,
+                                                                               schema = @Schema()
+                                                                       )
+                                                                       @PathVariable("gameId") UUID gameUUID,
+                                                                       @Parameter(
+                                                                               in = ParameterIn.PATH,
+                                                                               description = "",
+                                                                               required = true,
+                                                                               schema = @Schema()
+                                                                       )
+                                                                       @RequestParam("processorId") UUID processorUUID,
+                                                                       @Parameter(
+                                                                               in = ParameterIn.PATH,
+                                                                               description = "",
+                                                                               required = true,
+                                                                               schema = @Schema()
+                                                                       )
+                                                                       @RequestParam("graphicsId") UUID graphicsUUID,
+                                                                       @Parameter(
+                                                                               in = ParameterIn.PATH,
+                                                                               description = "",
+                                                                               required = true,
+                                                                               schema = @Schema()
+                                                                       )
+                                                                       @RequestParam("ramId") UUID ramUUID);
 }

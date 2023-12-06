@@ -20,7 +20,16 @@ public class PerformanceFilesControllerImpl implements PerformanceFilesControlle
 
     private final PerformanceFileService service;
     @Override
-    public ResponseEntity<List<PerformanceFilesResponse>> getPerformanceFiles(UserDetails userDetails, PerformanceFilesRequest request) {
+    public ResponseEntity<List<PerformanceFilesResponse>> getPerformanceFiles(UserDetails userDetails,
+                                                                              UUID gameUUID,
+                                                                              UUID processorUUID,
+                                                                              UUID graphicsUUID,
+                                                                              UUID ramUUID) {
+        PerformanceFilesRequest request = new PerformanceFilesRequest();
+        request.setGameId(gameUUID);
+        request.setProcessorId(processorUUID);
+        request.setGraphicsCardId(graphicsUUID);
+        request.setRamId(ramUUID);
         List<PerformanceFiles> result = service.getPerformanceFiles(request);
 
         List<PerformanceFilesResponse> response = new ArrayList<>();

@@ -43,7 +43,7 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
                         auth.requestMatchers("/login").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/games").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/components").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/performance_files").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/performance_files/**").permitAll()
                                 .anyRequest().authenticated()
                     );
             http
