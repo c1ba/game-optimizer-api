@@ -10,4 +10,6 @@ public interface ComponentsComboRepository {
 
     List<ComponentsCombo> getComponentCombosByUUIDs(List<UUID> uuidList);
     Optional<ComponentsCombo> getComponentsComboByComponents(UUID processorUUID, UUID graphicsCardUUID, UUID ramUUID);
+
+    void create(ComponentsCombo data);
 }

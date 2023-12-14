@@ -60,7 +60,7 @@ public class Components extends TableImpl<ComponentsRecord> {
     /**
      * The column <code>gaming_optimizer.components.name</code>.
      */
-    public final TableField<ComponentsRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(100).nullable(false), this, "");
+    public final TableField<ComponentsRecord, String> NAME = createField(DSL.name("name"), SQLDataType.VARCHAR(100).defaultValue(DSL.field("NULL::character varying", SQLDataType.VARCHAR)), this, "");
 
     /**
      * The column <code>gaming_optimizer.components.type</code>.

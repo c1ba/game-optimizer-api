@@ -76,6 +76,7 @@ DO $$
             username character varying(100) NOT NULL UNIQUE,
             password character varying(1024) NOT NULL,
             role gaming_optimizer.user_type NOT NULL DEFAULT 'user',
+            component_combo_id uuid,
             created_at timestamp NOT NULL DEFAULT NOW()
         );
         ALTER TABLE gaming_optimizer.users OWNER TO rooterino;

@@ -83,12 +83,12 @@ public class PerformanceFiles extends TableImpl<PerformanceFilesRecord> {
     /**
      * The column <code>gaming_optimizer.performance_files.likes</code>.
      */
-    public final TableField<PerformanceFilesRecord, Integer> LIKES = createField(DSL.name("likes"), SQLDataType.INTEGER, this, "");
+    public final TableField<PerformanceFilesRecord, Integer> LIKES = createField(DSL.name("likes"), SQLDataType.INTEGER.defaultValue(DSL.field("0", SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>gaming_optimizer.performance_files.dislikes</code>.
      */
-    public final TableField<PerformanceFilesRecord, Integer> DISLIKES = createField(DSL.name("dislikes"), SQLDataType.INTEGER, this, "");
+    public final TableField<PerformanceFilesRecord, Integer> DISLIKES = createField(DSL.name("dislikes"), SQLDataType.INTEGER.defaultValue(DSL.field("0", SQLDataType.INTEGER)), this, "");
 
     /**
      * The column <code>gaming_optimizer.performance_files.created_at</code>.

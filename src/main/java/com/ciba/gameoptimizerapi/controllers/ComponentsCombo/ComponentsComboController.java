@@ -1,5 +1,6 @@
 package com.ciba.gameoptimizerapi.controllers.ComponentsCombo;
 
+import com.ciba.gameoptimizerapi.exceptions.BadRequestException;
 import com.ciba.gameoptimizerapi.requests.PostComponentsComboRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -9,7 +10,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+
 @Validated
 @RequestMapping("/component_combos")
 public interface ComponentsComboController {
@@ -20,5 +21,5 @@ public interface ComponentsComboController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created")
     })
-    ResponseEntity<Void> postComponentCombo(@RequestBody PostComponentsComboRequest request);
+    ResponseEntity<Void> postComponentCombo(@RequestBody PostComponentsComboRequest request) throws BadRequestException;
 }

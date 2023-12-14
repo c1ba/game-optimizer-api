@@ -21,6 +21,7 @@ public class User implements UserDetails {
     private String username;
     private String password;
     private UserType role;
+    private UUID componentComboId;
     private Timestamp createdAt;
 
     @Override

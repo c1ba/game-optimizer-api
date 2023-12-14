@@ -10,4 +10,8 @@ public interface ComponentRepository {
     List<Component> getComponentsByUUIDs(List<UUID> idList);
 
     List<Component> getAllComponents();
+
+    void create(Component data);
+
+    List<Component> getComponentsByNamesAndCapacities(List<Component> data);
 }
