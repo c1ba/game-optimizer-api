@@ -14,6 +14,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.UUID;
+
 import static com.ciba.gameoptimizerapi.models.jooq.Tables.*;
 import static com.ciba.gameoptimizerapi.utils.JSONUtils.writeRequestBody;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -96,5 +98,14 @@ public class PerformanceFilesControllerTest {
                         + "&graphicsId=" + graphics.getId()
                         + "&ramId=" + ram.getId()).with(user(user)))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void getPerformanceFiles_shouldThrowNotFound() throws Exception {
+        mvc.perform(get("/games/"+ game.getId()
+                        + "?processorId=" + UUID.randomUUID()
+                        + "&graphicsId=" + graphics.getId()
+                        + "&ramId=" + ram.getId()))
+                .andExpect(status().isNotFound());
     }
 }

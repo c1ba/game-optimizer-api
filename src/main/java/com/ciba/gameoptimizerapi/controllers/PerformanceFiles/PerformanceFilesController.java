@@ -1,5 +1,6 @@
 package com.ciba.gameoptimizerapi.controllers.PerformanceFiles;
 
+import com.ciba.gameoptimizerapi.exceptions.NotFoundException;
 import com.ciba.gameoptimizerapi.requests.PerformanceFilesRequest;
 import com.ciba.gameoptimizerapi.responses.PerformanceFilesResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -54,5 +55,5 @@ public interface PerformanceFilesController {
                                                                                required = true,
                                                                                schema = @Schema()
                                                                        )
-                                                                       @RequestParam("ramId") UUID ramUUID);
+                                                                       @RequestParam("ramId") UUID ramUUID) throws NotFoundException;
 }
