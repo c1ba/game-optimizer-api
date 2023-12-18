@@ -37,6 +37,19 @@ A desktop application which provides its users with files that improve their gam
 -	Password (varchar)
 -	Role (USER, ADMIN)
 
+### Business Requirements
+
+1. As a Guest, I should have access to all available games.
+2. As a Guest, I should be able to combine existing components and get a performance score based on the selected game, with a warning only for guests that these results are based on modifications only someone registered has access to download them.
+3. As a Guest, I should be able to log in.
+4. As an User, I should have my components’ data and my component combo posted in the database after login if it does not exist. In case any of the components does not exist, it should be added as well.
+5. As an User, I should be able to post performance files as long as they are associated with my component combo.
+6. As an Admin, I should be able to delete any existing component or component combo. Upon the component’s deletion, every other component combo along with the associated performance files shall be deleted as well.
+7. As an Admin, I should be able to modify any performance file.
+8. As an Admin, I should be able to delete any performance file.
+9. As an Admin, I should be able to post performance files.
+10. As an Admin, I should be able to modify any user as banned for a period of time along with a reason.
+
 ## MVP Features
 
 1. As a Guest, I should have access to all available games.
