@@ -7,6 +7,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,5 +23,5 @@ public interface ComponentsComboController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created")
     })
-    ResponseEntity<Void> postComponentCombo(@RequestBody PostComponentsComboRequest request) throws BadRequestException;
+    ResponseEntity<Void> postComponentCombo(@AuthenticationPrincipal UserDetails userDetails, @RequestBody PostComponentsComboRequest request) throws BadRequestException;
 }

@@ -1,10 +1,6 @@
 package com.ciba.gameoptimizerapi.integration.controllers;
 
 import com.ciba.gameoptimizerapi.requests.LoginRequest;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import org.jooq.DSLContext;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserControllerTest {
+public class UserTest {
 
     @Autowired
     private MockMvc mvc;
@@ -35,7 +31,7 @@ public class UserControllerTest {
         reqBody.setUsername(username);
         reqBody.setPassword(password);
 
-        String requestJson= writeRequestBody(reqBody);
+        String requestJson = writeRequestBody(reqBody);
 
         mvc.perform(post("/login").contentType("application/json").content(requestJson))
                 .andExpect(status().isOk());
@@ -50,7 +46,7 @@ public class UserControllerTest {
         reqBody.setUsername(username);
         reqBody.setPassword(password);
 
-        String requestJson= writeRequestBody(reqBody);
+        String requestJson = writeRequestBody(reqBody);
 
         mvc.perform(post("/login").contentType("application/json").content(requestJson))
                 .andExpect(status().isBadRequest());
