@@ -2,10 +2,7 @@ package com.ciba.gameoptimizerapi.integration.controllers;
 
 import com.ciba.gameoptimizerapi.models.*;
 import com.ciba.gameoptimizerapi.models.jooq.enums.ComponentType;
-import com.ciba.gameoptimizerapi.requests.PerformanceFilesRequest;
 import org.jooq.DSLContext;
-import org.jooq.Field;
-import org.jooq.impl.DSL;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,14 +14,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.UUID;
 
 import static com.ciba.gameoptimizerapi.models.jooq.Tables.*;
-import static com.ciba.gameoptimizerapi.utils.JSONUtils.writeRequestBody;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PerformanceFilesControllerTest {
+public class PerformanceFilesTest {
 
     @Autowired
     private MockMvc mvc;

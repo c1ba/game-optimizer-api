@@ -17,11 +17,11 @@ import java.util.function.Function;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Function5;
+import org.jooq.Function6;
 import org.jooq.Name;
 import org.jooq.Record;
 import org.jooq.Records;
-import org.jooq.Row5;
+import org.jooq.Row6;
 import org.jooq.Schema;
 import org.jooq.SelectField;
 import org.jooq.Table;
@@ -73,6 +73,11 @@ public class Users extends TableImpl<UsersRecord> {
      * The column <code>gaming_optimizer.users.role</code>.
      */
     public final TableField<UsersRecord, UserType> ROLE = createField(DSL.name("role"), SQLDataType.VARCHAR.nullable(false).defaultValue(DSL.field("'user'::user_type", SQLDataType.VARCHAR)).asEnumDataType(com.ciba.gameoptimizerapi.models.jooq.enums.UserType.class), this, "");
+
+    /**
+     * The column <code>gaming_optimizer.users.component_combo_id</code>.
+     */
+    public final TableField<UsersRecord, UUID> COMPONENT_COMBO_ID = createField(DSL.name("component_combo_id"), SQLDataType.UUID, this, "");
 
     /**
      * The column <code>gaming_optimizer.users.created_at</code>.
@@ -167,18 +172,18 @@ public class Users extends TableImpl<UsersRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row5 type methods
+    // Row6 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row5<UUID, String, String, UserType, LocalDateTime> fieldsRow() {
-        return (Row5) super.fieldsRow();
+    public Row6<UUID, String, String, UserType, UUID, LocalDateTime> fieldsRow() {
+        return (Row6) super.fieldsRow();
     }
 
     /**
      * Convenience mapping calling {@link SelectField#convertFrom(Function)}.
      */
-    public <U> SelectField<U> mapping(Function5<? super UUID, ? super String, ? super String, ? super UserType, ? super LocalDateTime, ? extends U> from) {
+    public <U> SelectField<U> mapping(Function6<? super UUID, ? super String, ? super String, ? super UserType, ? super UUID, ? super LocalDateTime, ? extends U> from) {
         return convertFrom(Records.mapping(from));
     }
 
@@ -186,7 +191,7 @@ public class Users extends TableImpl<UsersRecord> {
      * Convenience mapping calling {@link SelectField#convertFrom(Class,
      * Function)}.
      */
-    public <U> SelectField<U> mapping(Class<U> toType, Function5<? super UUID, ? super String, ? super String, ? super UserType, ? super LocalDateTime, ? extends U> from) {
+    public <U> SelectField<U> mapping(Class<U> toType, Function6<? super UUID, ? super String, ? super String, ? super UserType, ? super UUID, ? super LocalDateTime, ? extends U> from) {
         return convertFrom(toType, Records.mapping(from));
     }
 }
