@@ -1,0 +1,2 @@
+INSERT INTO gaming_optimizer.performance_files(id, components_combo_id, user_id, game_id, performance_files_names)
+VALUES ('653e0c8f-10b4-4bb4-a6df-a3d98a03cdc5', '250c589c-edd3-4a0a-9683-e414050ae1ab', 'f24f1349-2963-44dd-81a1-d257bf497848', 'ede2469a-ce2b-4220-b305-af6b0d682b3f', ARRAY ['graphics_optimizer.exe', 'super_small_fov.dll']);

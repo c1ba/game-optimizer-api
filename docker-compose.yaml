@@ -17,6 +17,7 @@ services:
       - ./pglocal/users_generate.sql:/docker-entrypoint-initdb.d/2.sql
       - ./pglocal/components_generate.sql:/docker-entrypoint-initdb.d/3.sql
       - ./pglocal/games_generate.sql:/docker-entrypoint-initdb.d/4.sql
+      - ./pglocal/performance_files.sql:/docker-entrypoint-initdb.d/5.sql
     ports:
       - 5433:5433
     command: -p 5433
