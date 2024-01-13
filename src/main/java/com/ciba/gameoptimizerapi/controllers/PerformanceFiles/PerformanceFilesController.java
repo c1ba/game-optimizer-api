@@ -23,35 +23,35 @@ import java.util.UUID;
 public interface PerformanceFilesController {
 
     @GetMapping("/{gameId}")
-    @Operation(summary = "Get All Components", description = "Gets all components.")
+    @Operation(summary = "Get Performance Files", description = "Gets all performance files of a game based on components.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operation Successful"),
     })
     ResponseEntity<List<PerformanceFilesResponse>> getPerformanceFiles(@AuthenticationPrincipal UserDetails userDetails,
                                                                        @Parameter(
                                                                                in = ParameterIn.PATH,
-                                                                               description = "",
+                                                                               description = "ID of the game",
                                                                                required = true,
                                                                                schema = @Schema()
                                                                        )
                                                                        @PathVariable("gameId") UUID gameUUID,
                                                                        @Parameter(
                                                                                in = ParameterIn.PATH,
-                                                                               description = "",
+                                                                               description = "ID of a processor",
                                                                                required = true,
                                                                                schema = @Schema()
                                                                        )
                                                                        @RequestParam("processorId") UUID processorUUID,
                                                                        @Parameter(
                                                                                in = ParameterIn.PATH,
-                                                                               description = "",
+                                                                               description = "ID of a graphics card",
                                                                                required = true,
                                                                                schema = @Schema()
                                                                        )
                                                                        @RequestParam("graphicsId") UUID graphicsUUID,
                                                                        @Parameter(
                                                                                in = ParameterIn.PATH,
-                                                                               description = "",
+                                                                               description = "ID of a ram capacity",
                                                                                required = true,
                                                                                schema = @Schema()
                                                                        )

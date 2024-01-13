@@ -33,11 +33,11 @@ public interface ComponentsController {
 
     @DeleteMapping("/components/{uuid}")
 //    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @Operation(summary = "Delete component", description = "Delete component by UUID.")
+    @Operation(summary = "Delete component", description = "Delete component by UUID. Admin only.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operation Successful"),
             @ApiResponse(responseCode = "404", description = "Not Found"),
-            @ApiResponse(responseCode = "401/403", description = "Unauthorized"),
+            @ApiResponse(responseCode = "404", description = "Forbidden"),
     })
     ResponseEntity<Void> delete(UserDetails userDetails, @PathVariable(value = "uuid") UUID uuid) throws NotFoundException, UnauthorizedException;
 }

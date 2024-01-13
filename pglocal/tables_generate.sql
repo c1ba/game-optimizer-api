@@ -170,6 +170,10 @@ DO $$
         IF NOT EXISTS (SELECT 1 FROM pg_constraint WHERE conname = 'user_fkey') THEN
         ALTER TABLE ONLY gaming_optimizer.performance_files ADD CONSTRAINT user_fkey FOREIGN KEY (user_id) REFERENCES gaming_optimizer.users(id) ON DELETE SET NULL;
         END IF;
+
+        IF NOT EXISTS (SELECT 1 FROM pg_indexes WHERE indexname = 'ram_index') THEN
+        CREATE UNIQUE INDEX ram_index ON components (capacity) WHERE components.type = 'ram';
+        END IF;
     END
 $$;
 

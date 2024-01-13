@@ -3,6 +3,7 @@ package com.ciba.gameoptimizerapi.requests;
 import com.ciba.gameoptimizerapi.models.Component;
 import com.ciba.gameoptimizerapi.models.jooq.enums.ComponentType;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,12 +17,21 @@ import java.util.List;
 public class PostComponentsComboRequest {
 
     @JsonProperty("processor")
+    @Schema(name = "processor",
+            description = "Processor data.",
+            type = "PostComponentRequest")
     private PostComponentRequest processor;
 
     @JsonProperty("graphicsCard")
+    @Schema(name = "graphicsCard",
+            description = "Graphics Card data.",
+            type = "PostComponentRequest")
     private PostComponentRequest graphicsCard;
 
     @JsonProperty("ram")
+    @Schema(name = "ram",
+            description = "Ram data. Usually the name is null, as only the capacity is necessary.",
+            type = "PostComponentRequest")
     private PostComponentRequest ram;
 
     public static List<Component> extractComponentsData(PostComponentsComboRequest request) {

@@ -19,7 +19,7 @@ public interface UserController {
     @Operation(summary = "Login", description = "Returns the user's token")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operation Successful"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized")
+            @ApiResponse(responseCode = "403", description = "Forbidden")
     })
     ResponseEntity<String> login(@RequestBody LoginRequest request) throws BadRequestException;
 }
