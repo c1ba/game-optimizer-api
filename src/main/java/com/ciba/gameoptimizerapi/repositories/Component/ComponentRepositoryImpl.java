@@ -1,6 +1,7 @@
 package com.ciba.gameoptimizerapi.repositories.Component;
 
 import com.ciba.gameoptimizerapi.models.Component;
+import com.ciba.gameoptimizerapi.models.jooq.enums.ComponentType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.jooq.DSLContext;
@@ -72,11 +73,21 @@ public class ComponentRepositoryImpl implements ComponentRepository {
         try {
             dsl.transaction(transaction -> {
                 for (Component dataElem : data) {
-                    Optional<Component> existing = transaction.dsl()
-                            .selectFrom(COMPONENTS)
-                            .where(COMPONENTS.NAME.eq(dataElem.getName()))
-                            .and(COMPONENTS.CAPACITY.eq(dataElem.getCapacity()))
-                            .fetchOptionalInto(Component.class);
+                    Optional<Component> existing;
+                    if (List.of(ComponentType.graphics_card, ComponentType.processor).contains(dataElem.getType())) {
+                        existing = transaction.dsl()
+                                .selectFrom(COMPONENTS)
+                                .where(COMPONENTS.NAME.eq(dataElem.getName()))
+                                .and(COMPONENTS.CAPACITY.eq(dataElem.getCapacity()))
+                                .fetchOptionalInto(Component.class);
+                    }
+                    else {
+                        existing = transaction.dsl()
+                                .selectFrom(COMPONENTS)
+                                .where(COMPONENTS.TYPE.eq(ComponentType.ram))
+                                .and(COMPONENTS.CAPACITY.eq(dataElem.getCapacity()))
+                                .fetchOptionalInto(Component.class);
+                    }
 
                     existing.ifPresent(result::add);
                 }
@@ -86,5 +97,17 @@ public class ComponentRepositoryImpl implements ComponentRepository {
             log.error("Repo exception: ", ex);
         }
         return result;
+    }
+
+    @Override
+    public void deleteByUUID(UUID uuid) {
+        try {
+            dsl.deleteFrom(COMPONENTS)
+                    .where(COMPONENTS.ID.eq(uuid))
+                    .execute();
+        }
+        catch (Exception ex) {
+            log.error("Repo exception: ", ex);
+        }
     }
 }

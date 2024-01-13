@@ -1,6 +1,7 @@
 package com.ciba.gameoptimizerapi.config;
 
 
+import com.ciba.gameoptimizerapi.security.AuthProvider;
 import com.ciba.gameoptimizerapi.security.JWTAuthFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -8,13 +9,13 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.GlobalAuthenticationConfigurerAdapter;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -22,7 +23,7 @@ import java.util.Set;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableMethodSecurity
 public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
 
     // It dictates the HTTP system how it should be configured for security.
@@ -30,34 +31,39 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
     // and I don't have any source for copying the new way yet.
 
     private final JWTAuthFilter jwtAuthFilter;
-    private final AuthenticationProvider authenticationProvider;
-    private final CorsConfigurationSource corsConfigurationSource;
+    private final AuthProvider authProvider;
+
+    private final CustomAuthenticationEntryPoint authenticationEntryPoint;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        try {
-            http.cors().configurationSource(corsConfigurationSource);
-            http.csrf().disable()
-                    .authorizeHttpRequests(auth ->
+        http.csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(auth ->
+                        {
+                            Set<String> whitelist;
 
-                        auth.requestMatchers("/login").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/games").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/components").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/performance_files/**").permitAll()
-                                .anyRequest().authenticated()
+                            whitelist = new HashSet<>(Set.of("/login", "/performance_files/**", "/games", "/components"));
+
+                            auth.requestMatchers(whitelist.toArray(new String[0])).permitAll()
+                                    .requestMatchers(HttpMethod.GET, "/**").permitAll()
+                                    .requestMatchers(HttpMethod.DELETE, "/**").hasAuthority("ROLE_ADMIN")
+                                    .anyRequest().authenticated();
+
+                            auth.shouldFilterAllDispatcherTypes(false);
+
+//                            auth.anyRequest().permitAll();
+                        }
                     );
-            http
-                    .sessionManagement()
-                    .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                    .and()
-                    .authenticationProvider(authenticationProvider)
-                    .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+        http
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-            return http.build();
-        }
-        catch (Exception ex) {
-            throw new IllegalStateException("Not able to build security filter chain", ex);
-        }
+        http.exceptionHandling(exception -> exception.authenticationEntryPoint(authenticationEntryPoint));
+
+        http
+                .authenticationProvider(authProvider)
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
     }
 
 }

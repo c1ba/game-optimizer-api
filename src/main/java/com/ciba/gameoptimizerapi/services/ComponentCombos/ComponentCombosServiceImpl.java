@@ -3,6 +3,7 @@ package com.ciba.gameoptimizerapi.services.ComponentCombos;
 import com.ciba.gameoptimizerapi.exceptions.BadRequestException;
 import com.ciba.gameoptimizerapi.models.Component;
 import com.ciba.gameoptimizerapi.models.ComponentsCombo;
+import com.ciba.gameoptimizerapi.models.jooq.enums.ComponentType;
 import com.ciba.gameoptimizerapi.repositories.Component.ComponentRepository;
 import com.ciba.gameoptimizerapi.repositories.ComponentsCombo.ComponentsComboRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,19 +31,25 @@ public class ComponentCombosServiceImpl implements ComponentCombosService {
         // Verify if component exists. If not, create and add for continuing the process.
         for (Component requestedComponent : requestedComponents) {
             Optional<Component> exists = existing.stream()
-                    .filter(component -> component.getName().equals(requestedComponent.getName())
-                    && component.getCapacity() == requestedComponent.getCapacity())
+                    .filter(component -> List.of(ComponentType.processor, ComponentType.graphics_card)
+                            .contains(component.getType()) ?
+                            component.getName().equals(requestedComponent.getName())
+                                    && component.getCapacity() == requestedComponent.getCapacity() :
+                            component.getCapacity() == requestedComponent.getCapacity())
                     .findFirst();
 
             if (exists.isEmpty()) {
                 requestedComponent.setId(UUID.randomUUID());
                 componentRepository.create(requestedComponent);
             }
+            else {
+                requestedComponent.setId(exists.get().getId());
+            }
 
             switch (requestedComponent.getType().getLiteral()) {
-                case "PROCESSOR" -> processorUUID = requestedComponent.getId();
-                case "GRAPHICS_CARD" -> graphicsUUID = requestedComponent.getId();
-                case "RAM" -> ramUUID = requestedComponent.getId();
+                case "processor" -> processorUUID = requestedComponent.getId();
+                case "graphics_card" -> graphicsUUID = requestedComponent.getId();
+                case "ram" -> ramUUID = requestedComponent.getId();
             }
         }
 
@@ -53,9 +60,19 @@ public class ComponentCombosServiceImpl implements ComponentCombosService {
                 .ramId(ramUUID)
                 .build();
 
-        if (repository.getComponentsComboByComponents(processorUUID, graphicsUUID, ramUUID).isEmpty()) {
+        if (repository.getComponentsComboByComponents(processorUUID, graphicsUUID, ramUUID).isPresent()) {
             throw new BadRequestException("Combo already exists!");
         }
         repository.create(data);
+    }
+
+    @Override
+    public void delete(UUID uuid) {
+        repository.deleteByUUID(uuid);
+    }
+
+    @Override
+    public List<ComponentsCombo> getComponentCombosByUUIDs(List<UUID> uuids) {
+        return repository.getComponentCombosByUUIDs(uuids);
     }
 }
