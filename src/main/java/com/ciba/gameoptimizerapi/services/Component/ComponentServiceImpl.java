@@ -23,4 +23,9 @@ public class ComponentServiceImpl implements ComponentService {
     public List<Component> getComponentsByUUIDs(List<UUID> uuids) {
         return repository.getComponentsByUUIDs(uuids);
     }
+
+    @Override
+    public void delete(UUID uuid) {
+        repository.deleteByUUID(uuid);
+    }
 }

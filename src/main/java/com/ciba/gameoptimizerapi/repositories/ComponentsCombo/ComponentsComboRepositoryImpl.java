@@ -50,6 +50,18 @@ public class ComponentsComboRepositoryImpl implements ComponentsComboRepository 
                     .execute();
         }
         catch (Exception ex) {
+            log.error("Repo error: ", ex);
+        }
+    }
+
+    @Override
+    public void deleteByUUID(UUID uuid) {
+        try {
+            dsl.deleteFrom(COMPONENT_COMBOS)
+                    .where(COMPONENT_COMBOS.ID.eq(uuid))
+                    .execute();
+        }
+        catch (Exception ex) {
             log.error("Repo exception: ", ex);
         }
     }

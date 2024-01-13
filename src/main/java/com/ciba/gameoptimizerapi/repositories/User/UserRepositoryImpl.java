@@ -32,7 +32,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> findByUsername(String username) {
-        return dsl.select(USERS.ID, USERS.ROLE, USERS.USERNAME).from(USERS)
+        return dsl.select(USERS.ID, USERS.ROLE, USERS.USERNAME, USERS.PASSWORD).from(USERS)
                 .where(USERS.USERNAME.eq(username))
                 .fetchOptionalInto(User.class);
     }

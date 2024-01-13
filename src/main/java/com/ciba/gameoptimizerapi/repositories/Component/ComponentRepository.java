@@ -13,5 +13,7 @@ public interface ComponentRepository {
 
     void create(Component data);
 
+    void deleteByUUID(UUID uuid);
+
     List<Component> getComponentsByNamesAndCapacities(List<Component> data);
 }

@@ -10,4 +10,6 @@ public interface ComponentService {
     List<Component> getAllComponents();
 
     List<Component> getComponentsByUUIDs(List<UUID> uuids);
+
+    void delete(UUID uuid);
 }

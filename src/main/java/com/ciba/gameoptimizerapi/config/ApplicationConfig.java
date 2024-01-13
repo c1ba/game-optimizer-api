@@ -2,8 +2,8 @@ package com.ciba.gameoptimizerapi.config;
 
 
 import com.ciba.gameoptimizerapi.repositories.User.UserRepository;
+import com.ciba.gameoptimizerapi.security.CustomPasswordEncoder;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
@@ -63,18 +63,7 @@ public class ApplicationConfig {
     // PasswordEncoder - used for implementing the authentication provider.
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedMethods(Arrays.asList("*"));
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
+        return new CustomPasswordEncoder();
     }
 
     @Bean
