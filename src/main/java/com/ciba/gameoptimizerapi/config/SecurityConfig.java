@@ -42,7 +42,7 @@ public class SecurityConfig extends GlobalAuthenticationConfigurerAdapter {
                         {
                             Set<String> whitelist;
 
-                            whitelist = new HashSet<>(Set.of("/login", "/performance_files/**", "/games", "/components"));
+                            whitelist = new HashSet<>(Set.of("/login", "/performance_files/**", "/games", "/components", "/swagger-ui.html"));
 
                             auth.requestMatchers(whitelist.toArray(new String[0])).permitAll()
                                     .requestMatchers(HttpMethod.GET, "/**").permitAll()

@@ -21,20 +21,19 @@ import java.util.UUID;
 public interface ComponentsComboController {
 
     @PostMapping("/component_combos")
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN') OR hasAuthority('ROLE_USER')")
-    @Operation(summary = "Post Component Combo", description = "Posts component combo for user taking each component.")
+    @Operation(summary = "Post Component Combo", description = "Posts component combo for user taking each component. Logged users only.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Created")
+            @ApiResponse(responseCode = "201", description = "Created"),
+            @ApiResponse(responseCode = "403", description = "Forbidden")
     })
     ResponseEntity<Void> postComponentCombo(UserDetails userDetails, @RequestBody PostComponentsComboRequest request) throws BadRequestException, UnauthorizedException;
 
     @DeleteMapping("/component_combos/{uuid}")
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @Operation(summary = "Delete component combo", description = "Delete component combo by UUID.")
+    @Operation(summary = "Delete component combo", description = "Deletes component combo by UUID. Admin only.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Operation Successful"),
             @ApiResponse(responseCode = "404", description = "Not Found"),
-            @ApiResponse(responseCode = "401/403", description = "Unauthorized"),
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
     })
     ResponseEntity<Void> delete(UserDetails userDetails, @PathVariable(value = "uuid") UUID uuid) throws NotFoundException, UnauthorizedException;
 }
