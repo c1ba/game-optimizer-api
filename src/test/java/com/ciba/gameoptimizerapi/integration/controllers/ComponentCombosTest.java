@@ -29,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class ComponentCombosTest {
 
     @Autowired
@@ -58,21 +59,11 @@ public class ComponentCombosTest {
             createdComboId = dsl.select(COMPONENT_COMBOS.ID).from(COMPONENT_COMBOS)
                     .where(COMPONENT_COMBOS.PROCESSOR_ID.eq(processorUUID))
                     .fetchOneInto(UUID.class);
-            System.out.println(processorUUID+ ", " + createdComboId);
-        }
-    }
-
-    @AfterEach
-    void fin(TestInfo info) {
-        if (info.getTags().contains(CLEAR_CREATED)) {
-            dsl.deleteFrom(COMPONENTS)
-                    .where(COMPONENTS.NAME.in(List.of(processorName, "Powerful Graphics Card GTX 9050")))
-                    .or(COMPONENTS.CAPACITY.eq(99.0f))
-                    .execute();
         }
     }
 
     @Test
+    @Order(1)
     void createComponentsCombo_asGuest_shouldBeForbidden() throws Exception {
         String jsonRequest = generatePostRequest();
 
@@ -81,6 +72,7 @@ public class ComponentCombosTest {
                 .andExpect(status().isForbidden());
     }
     @Test
+    @Order(2)
     void createComponentsCombo_asUser_shouldSucceed() throws Exception {
         String jsonRequest = generatePostRequest();
 
@@ -90,14 +82,15 @@ public class ComponentCombosTest {
     }
 
     @Test
+    @Order(3)
     void deleteComponentCombo_asUser_shouldBeForbidden() throws Exception {
         mvc.perform(delete("/component_combos/" + createdComboId).with(user(user)))
                 .andExpect(status().isForbidden());
     }
 
     @Test
-    @Tag(CLEAR_CREATED)
     @Tag(SELECT_FOR_DELETION)
+    @Order(4)
     void deleteComponentCombo_asAdmin_shouldSucceed() throws Exception {
         mvc.perform(delete("/component_combos/" + createdComboId).with(user(admin)))
                 .andExpect(status().isOk());

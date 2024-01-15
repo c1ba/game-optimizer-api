@@ -22,7 +22,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class PerformanceFilesTest {
 
     @Autowired
@@ -44,20 +43,19 @@ public class PerformanceFilesTest {
                 .fetchAnyInto(User.class);
 
         processor = dsl.selectFrom(COMPONENTS)
-                .where(COMPONENTS.TYPE.eq(ComponentType.processor))
-                .fetchAnyInto(Component.class);
-        System.out.println(processor.getName());
+                .where(COMPONENTS.ID.eq(UUID.fromString("cf999b7d-749f-49e4-a449-941ecf046833")))
+                .fetchOneInto(Component.class);
         graphics = dsl.selectFrom(COMPONENTS)
-                .where(COMPONENTS.TYPE.eq(ComponentType.graphics_card))
-                .fetchAnyInto(Component.class);
-        System.out.println(graphics.getName());
+                .where(COMPONENTS.ID.eq(UUID.fromString("209de56e-bd11-4d7d-96fd-12c509f963a2")))
+                .fetchOneInto(Component.class);
+
         ram = dsl.selectFrom(COMPONENTS)
-                .where(COMPONENTS.TYPE.eq(ComponentType.ram))
-                .fetchAnyInto(Component.class);
-        System.out.println(ram.getCapacity());
+                .where(COMPONENTS.ID.eq(UUID.fromString("b728e570-5021-43aa-9caf-72e78105532a")))
+                .fetchOneInto(Component.class);
+
         game = dsl.selectFrom(GAMES)
+                .where(GAMES.ID.eq(UUID.fromString("ede2469a-ce2b-4220-b305-af6b0d682b3f")))
                 .fetchAnyInto(Game.class);
-        System.out.println(game.getName());
     }
 
     @Test
