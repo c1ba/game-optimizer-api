@@ -28,8 +28,8 @@ public class ComponentCombosServiceTest {
     @InjectMocks
     private ComponentCombosServiceImpl service;
 
-//    @Mock
-//    private ComponentRepository componentRepository;
+    @Mock
+    private ComponentRepository componentRepository;
 
     @Mock
     private ComponentsComboRepository repository;
@@ -39,7 +39,7 @@ public class ComponentCombosServiceTest {
     private Component ram;
     private ComponentsCombo combo;
 
-//    private List<Component> allComponents;
+    private List<Component> allComponents;
 
     @BeforeEach
     void init() {
@@ -69,7 +69,7 @@ public class ComponentCombosServiceTest {
                 .processorId(processor.getId())
                 .build();
 
-//        allComponents = List.of(processor, graphics, ram);
+        allComponents = List.of(processor, graphics, ram);
     }
 
     @Test

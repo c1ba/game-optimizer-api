@@ -24,7 +24,8 @@ public interface ComponentsComboController {
     @Operation(summary = "Post Component Combo", description = "Posts component combo for user taking each component. Logged users only.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "201", description = "Created"),
-            @ApiResponse(responseCode = "403", description = "Forbidden")
+            @ApiResponse(responseCode = "403", description = "Forbidden"),
+            @ApiResponse(responseCode = "400", description = "Bad Request. It already exists.")
     })
     ResponseEntity<Void> postComponentCombo(UserDetails userDetails, @RequestBody PostComponentsComboRequest request) throws BadRequestException, UnauthorizedException;
 
